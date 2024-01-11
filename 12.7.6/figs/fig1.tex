@@ -1,0 +1,12 @@
+
+\begin{circuitikz}
+    % Define components with values
+    \draw (0,0) to [L, l=$2.0\, H$] (2,0)  % Inductor L
+    to [R, l=$10\, \Omega$] (4,0)  % Resistor R
+    to [C, l=$32\, \mu\mathrm{F}$] (4,-2)  % Capacitor C
+    -- (0,-2) to (0,0);  % Connect back to the starting point
+
+    % Add labels
+    \node at (1,0.3) {$+$};
+    \node at (1,-2.3) {$-$};
+\end{circuitikz}
