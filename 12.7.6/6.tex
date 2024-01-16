@@ -1,3 +1,5 @@
+
+
 \let\negmedspace\undefined
 \let\negthickspace\undefined
 \documentclass[journal,12pt,twocolumn]{IEEEtran}
@@ -147,38 +149,45 @@ In Figure~\figref{fig:2} the following information is provided:
 
 \section*{Series LCR Circuit Analysis}
 
+
+
 The resonant frequency (\(f_r\)) of a series LCR circuit can be calculated using the formula:
 
-\[
+\begin{align}
 f_r = \frac{1}{2\pi \sqrt{LC}}
-\]
+\end{align}
 
 where \(L\) is the inductance, \(C\) is the capacitance, and \(\pi\) is a mathematical constant.
 
-Given \(L = 2.0 \, \text{H}\) and \(C = 32 \, \mu\text{F}\) (\(32 \times 10^{-6} \, \text{F}\)), the resonant frequency is calculated as follows:
+Given \(L = 2.0 \, $H$\) and \($C$ = 32 \, \mu$F$\) (\(32 \times 10^{-6} \, $F$\)), the resonant frequency is calculated as follows:
 
-\[
+\begin{align}
 f_r = \frac{1}{2\pi \sqrt{(2.0 \, \text{H})(32 \times 10^{-6} \, \text{F})}} \approx \frac{1}{2\pi \times 0.008} \approx 20 \, \text{Hz}
-\]
+\end{align}
 
 Next, the quality factor (\(Q\)) of the circuit can be calculated using the formula:
 
-\[
+\begin{align}
 Q = \frac{1}{R} \sqrt{\frac{L}{C}}
-\]
+\end{align}
 
 Given \(R = 10\), \(L = 2.0 \, \text{H}\), and \(C = 32 \, \mu\text{F}\), the Q-value is found as:
 
-\[
+\begin{align}
 Q = \frac{1}{10} \sqrt{\frac{2.0 \, \text{H}}{32 \times 10^{-6} \, \text{F}}} \approx \frac{1}{10} \times \frac{1}{0.004} \approx 25
-\]
-
+\end{align}
 
 Now, the voltage transfer function (\(\frac{V(s)}{I(s)} = H(s)\)) is given by Ohm's Law in the Laplace domain:
 
-\[
-\frac{V(s)}{I(s)} = R + sL + \frac{1}{sC} = 10 + 2s + \frac{1}{32 \times 10^{-6}s}
-\]
+\begin{align}
+\frac{V(s)}{I(s)} = R + sL + \frac{1}{sC} 
+\end{align}
+
+Now, after substitution the equation is 
+
+\begin{align}
+\frac{V(s)}{I(s)} = 10 + 2s + \frac{1}{32 \times 10^{-6}s}
+\end{align}
 
 This is the voltage transfer function for the series LCR circuit in the Laplace domain.
 
@@ -193,6 +202,9 @@ The equivalent s domain of the circuit is :
 \end{figure}
 
 \end{document}
+
+
+
 
 
 
