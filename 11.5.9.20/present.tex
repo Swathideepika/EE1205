@@ -1,0 +1,141 @@
+\documentclass{beamer}
+\usetheme{Madrid}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{gensymb}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{gvv}
+
+\begin{document}
+
+\title{GATE: ST - 32.2023}
+\author{EE22BTECH11039 - Pandrangi Aditya Sriram$^{*}$}
+\date{}
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Question}
+Suppose $X$ is a binomial distribution $B\left(6,\frac{1}{2}\right)$. Show that $X=3$ is the most likely outcome.
+(Hint : $P(X=3)$ is the maximum among all $P(x_i),x_i=0,1,2,3,4,5,6$)\\ \hfill(GATE ST 2023)
+\end{frame}
+
+\begin{frame}{allowframebreaks}
+\frametitle{Solution: Theory}
+For all $X_i$ which as i.i.d's, mean $\mu = 4$ and variance $\sigma^2 = 9$,
+\begin{align}
+    Y_n &= \frac{1}{n} \sum_{i=1}^{n} X_i
+\end{align}
+The mean of a sum of i.i.d random variables is calculated as
+\begin{align}
+    \text{E}\sbrak{Y_n} &= \text{E}\sbrak{\frac{1}{n} \sum_{i=1}^{n} X_i}\\
+    &= \frac{1}{n} \sum_{i=1}^{n} \text{E}\sbrak{X_i}\\
+    &= \frac{1}{n} (n\mu)\\
+    &= \mu
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Theory}
+The variance of a sum of i.i.d random variables is calculated as
+\begin{align}
+    \text{var}\brak{Y_n} &= \text{E}\sbrak{\brak{\frac{1}{n} \sum_{i=1}^{n} X_i}^2} - \brak{\text{E}\sbrak{\frac{1}{n} \sum_{i=1}^{n} X_i}}^2\\
+    &= \frac{1}{n^2} \cbrak{\text{E}\sbrak{\brak{\sum_{i=1}^{n} X_i}^2} - \brak{\text{E}\sbrak{\sum_{i=1}^{n} X_i}}^2}\label{eq:st_32_2023_1}
+\end{align}
+But
+\begin{align}
+    \text{E}\sbrak{\brak{\sum_{i=1}^{n} X_i}^2} &= \text{E}\sbrak{\sum_{i=1}^{n} \sum_{j=1}^{n} X_iX_j}\\
+    &= \sum_{i=1}^{n} \sum_{j=1}^{n} \text{E}\sbrak{X_iX_j} \label{eq:st_32_2023_2}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Theory}
+and 
+\begin{align}
+    \brak{\text{E}\sbrak{\sum_{i=1}^{n} X_i}}^2 &= \brak{\sum_{i=1}^{n} \text{E}\sbrak{X_i}}^2\\
+    &= \sum_{i=1}^{n} \sum_{j=1}^{n} \text{E}\sbrak{X_i} \text{E}\sbrak{X_j} \label{eq:st_32_2023_3}
+\end{align}
+Putting \eqref{eq:st_32_2023_2} and \eqref{eq:st_32_2023_3} in \eqref{eq:st_32_2023_1}, and using the definition of covariance,
+\begin{align}
+    \text{var}\brak{Y_n} &= \frac{1}{n^2} \cbrak{\sum_{i=1}^{n} \sum_{j=1}^{n} \brak{\text{E}\sbrak{X_iX_j} - \text{E}\sbrak{X_i} \text{E}\sbrak{X_j}}}\\
+    &= \frac{1}{n^2} \cbrak{\sum_{i=1}^{n} \sum_{j=1}^{n} \text{cov}\brak{X_i, X_j}} \label{eq:st_32_2023_4}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Theory}
+As all the variables are i.i.d's and are thus uncorrelated,
+\begin{align}
+    \text{cov}\brak{X_i, X_j} =
+    \begin{cases}
+        0 & \text{if } i \ne j\\
+        \text{var}\brak{X_i} & \text{if } i = j
+    \end{cases}\label{eq:st_32_2023_5}
+\end{align}
+Putting \eqref{eq:st_32_2023_5} in \eqref{eq:st_32_2023_4},
+\begin{align}
+    \text{var}\brak{Y_n} &= \frac{1}{n^2} \brak{\sum_{i=1}^{n} \text{cov}\brak{X_i, X_i}}\\
+     &= \frac{1}{n^2} \brak{\sum_{i=1}^{n} \text{var}\brak{X_i}}\\
+     &= \frac{1}{n^2} \brak{\sum_{i=1}^{n} \sigma^2}\\
+     &= \frac{\sigma^2}{n}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Theory}
+Consider the term $\brak{\frac{Y_n - \mu}{\sqrt{n}}}^2$. Calculating its expectation,
+\begin{align}
+    \text{E}\sbrak{\brak{\frac{Y_n - \mu}{\sqrt{n}}}^2} &= \frac{1}{n} \text{E}\sbrak{\brak{Y_n - \mu}^2}\\
+    &= \frac{1}{n} \text{var}\brak{Y_n}\\
+    &= \frac{\sigma^2}{n^2}
+\end{align}
+Substituting $\sigma^2 = 9$ and $\mu = 4$, we get
+\begin{align}
+    \lim\limits_{n \to \infty} \text{E}\sbrak{\brak{\frac{Y_n - 4}{\sqrt{n}}}^2}
+    = \lim\limits_{n \to \infty} \frac{9}{n^2} = 0 \label{eq:st_32}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Simulation}
+Any distribution with mean $\mu = 4$ and variance $\sigma^2 = 9$ can be used for the variable $X_{ij}$ for all $i,j \in \mathbb{N}$; as shown in the Theory part, the limit is always zero regardless of the distribution. The most straightforward distribution that can be used for $X_{ij}$ is:
+\begin{align}
+    p_{X_{ij}}(x) = \begin{cases}
+    0.5 &\text{if }x \in \cbrak{1, 7}\\
+    0 &\text{otherwise }
+    \end{cases}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Simulation}
+This distribution has the following characteristics:
+\begin{align}
+    \mu &= \text{E}\sbrak{X_{ij}} = 0.5\times1 + 0.5\times 7 = 4\\
+    \sigma^2 &= \text{E}\sbrak{X_{ij}^2} - \brak{\text{E}\sbrak{X_{ij}}}^2\\
+    &= \brak{0.5 \times 1^2 + 0.5 \times 7^2} - 4^2\\
+    &= 9
+\end{align}
+A matrix $X_{n \times m}$ is generated for all $i \leq n$ and $j \leq m$.
+Using this matrix, a set of m values for $Y_j$ is generated as
+\begin{align}
+    Y_j = \frac{1}{n} \sum_{i = 1}^{n} X_{ij}
+\end{align}
+\end{frame}
+\begin{frame}
+\frametitle{Simulation}
+Now, the expression $\frac{\brak{Y_j - 4}^2}{n}$ is calculated for all $j \leq m$ and their expectancy is calculated as follows:
+\begin{align}
+    \text{E}\sbrak{\brak{\frac{Y_n - 4}{\sqrt{n}}}^2} &= \frac{1}{m}\sum_{j=1}^{m} \frac{\brak{Y_j - 4}^2}{n}
+\end{align}
+To calculate the limit $n \rightarrow \infty$, different values of n are taken, and the expected value is calculated (taking a fixed small value of m to reduce computational time) for each case. This output is plotted and is seen to be close to the curve $\frac{9}{n^2}$, as derived in \eqref{eq:st_32}. 
+\end{frame}
+\begin{frame}
+\frametitle{Simulation}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width = 0.7\columnwidth]{figures/expectation.png}
+    \caption{Expectation vs n}
+    \label{fig:st_2023_32_figure}
+\end{figure}
+In both cases, we can observe the limit tends towards zero.
+\end{frame}
+\end{document}
+
