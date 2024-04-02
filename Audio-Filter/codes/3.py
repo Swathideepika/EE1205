@@ -10,7 +10,7 @@ sampl_freq=fs
 #order of the filter
 order=4   
 
-#cutoff frquency 3kHz
+#cutoff frquency 1kHz
 cutoff_freq=1000.0  
 
 #digital frequency
